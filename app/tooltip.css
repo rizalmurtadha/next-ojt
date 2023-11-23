@@ -1,0 +1,79 @@
+.MuiTooltip-tooltip {
+    font-size: 10px;
+    padding: 0px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 15px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.MuiTooltip-tooltip .MuiListItem-root  {
+    border-radius: 15px;
+}
+.MuiTooltip-tooltip .MuiList-root  {
+    border-radius: 15px;
+}
+
+.MuiPopper-root {
+    background-color: #FFFFFF !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 15px;
+}
+
+.MuiPopper-root .MuiTooltip-tooltip{
+    padding:0px;
+    margin: 0px;
+    border-radius: 15px;
+}
+
+.MuiPopper-root .tooltipButton {
+    min-height: 40px;
+    width: 100% !important;
+    min-width: 260px;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px;
+    text-align: start;
+    justify-content: start;
+}
+
+/* .MuiPopper-root Button:first-child {
+    border-radius: 15px 15px 0px 0px;
+}
+
+.MuiPopper-root Button:last-child {
+    border-radius: 0px 0px 15px 15px ;
+} */
+
+.MuiPopper-root .tooltipButton p {
+    width: 100%;
+}
+
+.MuiPopper-root .tooltipButton:hover {
+    background-color: #FF690070;
+}
+
+.MuiPopper-root .MuiList-root {
+    padding: 0px ;
+    background-color: #ffffff;
+}
+
+.MuiPopper-root .MuiList-root .MuiListItem-root {
+    padding: 0px;
+    /* width:max-content; */
+    background-color: #ffffff;
+}
+
+.MuiPopper-root .MuiTooltip-tooltipPlacementBottom {
+    margin: 0px !important; 
+    border-radius: 15px;
+}
+
+.MuiPopper-root .MuiTooltip-tooltipPlacementRight {
+    margin: 0px !important; 
+}
+
+
+.MuiStack-root {
+    width: 100%;
+}

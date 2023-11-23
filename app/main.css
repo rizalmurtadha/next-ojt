@@ -1,0 +1,102 @@
+
+.mainArea {
+    color: black;
+    display: block;
+    /* justify-content: center; */
+    /* background-color: rgb(238, 242, 246); */
+    background-color: white;
+    width: 100%;
+    min-height: calc(100vh - 64px);
+    margin-top: 64px;
+    padding: 0px 20px;
+    /* padding-top: 0px; */
+}
+
+.mainArea > .box-orange {
+    padding: 0px 20px;
+    padding-top: 20px;
+    border-radius: 20px 20px 0px 0px;
+    min-height: calc(100vh - 64px);
+    /* height: 100%; */
+    /* background-color: #FF690070; */
+    /* margin-right: 24px; */
+}
+
+.mainArea .box-white {
+    background-color: white;
+    padding: 0px 20px 0px 20px;
+    border-radius: 20px 20px 0px 0px;
+    min-height: calc(100vh - 64px - 20px);
+}
+
+
+.judulPage {
+    padding: 10px;
+    text-align: center;  
+}
+
+
+@media (max-width:600px) {
+    .judulPage {
+        padding: 10px;
+        font-size: 20px;
+    }
+    .judulPage h1 {
+        font-size: 20px;
+    }
+}
+
+.mainForm {
+    width: 100%;
+}
+
+.mainForm .MuiGrid-root{
+    padding: 0px 5px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+}
+.mainForm .MuiGrid-root > p{
+    font-size: 18px;
+    width: 100%;
+}
+
+.mainForm .MuiGrid-root > p span{
+    float: right;
+}
+
+@media (max-width: 600px) {
+    .mainForm .labelForm{
+        display: none;
+    }       
+}
+
+.fomGridContainer {
+    height: 100%;
+}
+.secondLevel {
+    padding: 0px;
+    justify-content: start;
+
+}
+
+.secondLevel Button {
+    min-height: 50px;
+    padding: 5px 5px;
+    width: 100%;
+    color: black;
+    justify-content: start;
+}
+
+.secondLevel Button:hover {
+    background-color: #FF690050;
+}
+
+.secondLevel Button span{
+    padding: 0px 5px;
+}
+
+.secondLevel Button p{
+    width: 100%;
+    text-align: start;
+}
