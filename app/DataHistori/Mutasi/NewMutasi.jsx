@@ -20,6 +20,10 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 
+import SelectInput from '../../component/SelectInput';
+import TextInput from '../../component/TextInput';
+import DateInput from '../../component/DateInput';
+
 const rows = [
     { no: 1, statusKerja: 'Aktif', TMT: "21-04-2018", keterangan: "Mutasi antar KPRK", tanggalInsert: "17-04-2018" ,button:''},
     { no: 2, statusKerja: 'Aktif', TMT: "21-04-2017", keterangan: "Mutasi antar KPRK", tanggalInsert: "17-04-2017" ,button:''},
@@ -27,42 +31,12 @@ const rows = [
   ];
 
   const headCells = [
-    {
-      id: 'no',
-      numeric: false,
-      disablePadding: true,
-      label: 'No',
-    },
-    {
-      id: 'statusKerja',
-      numeric: false,
-      disablePadding: false,
-      label: 'Status Kerja',
-    },
-    {
-      id: 'tmt',
-      numeric: true,
-      disablePadding: false,
-      label: 'TMT',
-    },
-    {
-      id: 'keterangan',
-      numeric: false,
-      disablePadding: false,
-      label: 'Keterangan',
-    },
-    {
-      id: 'insert',
-      numeric: true,
-      disablePadding: false,
-      label: 'Tanggal Insert',
-    },
-    {
-        id: 'aksi',
-        numeric: false,
-        disablePadding: false,
-        label: 'Aksi',
-    },
+    { id: 'no', label: 'No', },
+    { id: 'statusKerja', label: 'Status Kerja', },
+    { id: 'tmt', label: 'TMT', },
+    { id: 'keterangan', label: 'Keterangan', },
+    { id: 'insert', label: 'Tanggal Insert', },
+    { id: 'aksi', label: 'Aksi', },
   ];
 
   const options1 = [
@@ -75,6 +49,19 @@ const rows = [
     { id: '4', value: 'Aktif' },
     { id: '5', value: 'PHK ATAS PERMINTAAN SENDIRI' },
     { id: '6', value: 'PHK KARENA MANGKIR' },
+  ];
+
+  const listKantor = [
+    "KCP CIKUPA",
+    "KCP TIGARAKSA",
+    "KCP CISOKA",
+    "KCP CIBADAK",
+  ];
+
+  const listStatusKerja = [
+    "Aktif",
+    "PHK ATAS PERMINTAAN SENDIRI",
+    "PHK KARENA MANGKIR",
   ];
 
 function NewMutasi() {
@@ -99,403 +86,77 @@ function NewMutasi() {
         setTextFieldValue(event.target.value);
     };
 
+    const [isUserData, setIsUserData] = useState(null);
+    const [userForm, setUserForm] = useState(null);
+    const [tableData, setTableData] = useState(null);
+
+    const handleNipposSearchSubmit = (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+        console.log(data); 
+        setIsUserData(true);
+    }
+
+
   return (
     <PageAreaContainer >
-        <h1>KELOLA HISTORI  MUTASI</h1>
-        <Grid className='main' sx={{backgroundColor:'white'}} container spacing={0}>
+        <Box style={{marginBottom:'20px'}}>
+            <h1>KELOLA HISTORI  MUTASI</h1>
+        </Box>
+        <Grid container spacing={0}>
             <Grid item xs={12}>
-                <form style={{paddingBottom:'10px'}}>
-                    <FormControl >
-                        <CustomNipposTextField
-                            id="outlined-basic" 
-                            label="Nippos" 
-                            variant="outlined"
-                            sx={{minWidth:'200px'}}
-                            />
-                    </FormControl>
+                <form style={{height:'max-content'}} onSubmit={handleNipposSearchSubmit}>
+                    <TextInput name="nippos" label="Nippos" isNipposForm />
                 </form>
             </Grid>
+        </Grid>
+        <Grid className='main' sx={{backgroundColor:'white'}} container spacing={0}>
             <form >
             <Grid container spacing={0}>
                 <Grid item xs={12} md={6} container spacing={0}>
-                    <Grid item xs={3} sm={5}>
+                    <Grid item xs={4} sm={5}>
                         <p>Nippos <span>:</span></p>
                     </Grid>
-                    <Grid item xs={9} sm={7}>
+                    <Grid item xs={8} sm={7}>
                         <p className='textShow'>99928371828</p>
                     </Grid>
 
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>No. Surat Mutasi* <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <FormControl sx={{width:'100%'}}>
-                            <CustomTextField
-                                id="outlined-basic" 
-                                label={isLargeScreen ? "" : 'No. Surat Mutasi*'}
-                                variant="outlined"
-                            />
-                        </FormControl>
-                    </Grid>
+                    <TextInput name="noSuratMutasi" label="No. Surat Mutasi*" />
+                    <DateInput name="tglSuratMutasi" label="Tgl Surat Mutasi*" />
+                    <DateInput name="tmtMeletakanJabatan" label="TMT Meletakkan Jabatan*" />
+                    <SelectInput name="jenisMutasi" label="Jenis Mutasi*" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
 
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>Tgl Surat Mutasi* <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <CustomDatePicker label='Tgl Surat Mutasi*'  />
-                        </LocalizationProvider>
-                    </Grid>
-
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>TMT Meletakkan Jabatan* <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <CustomDatePicker label="TMT Meletakkan Jabatan*" />
-                        </LocalizationProvider>
-                    </Grid>
-
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>Jenis Mutasi * <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <CustomFormControlDrop2 variant='outlined'>
-                            
-                            <InputLabel id="demo-simple-select-helper-label">Jenis Mutasi *</InputLabel>
-                            <CustomSelect
-                                MenuProps={{
-                                    PaperProps: {
-                                    style: {
-                                        padding: '0px !important',
-                                    },
-                                    },
-                                }}
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select"
-                                value={selectedOption1}
-                                displayEmpty={isLargeScreen}
-                                label={isLargeScreen ? "" : 'Jenis Mutasi *'}
-                                onChange={handleOption1Change}
-                                disableScrollLock={true}
-                                >
-                                <MenuItem disabled value="" >
-                                    <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                                </MenuItem>
-                                {options1.map((option) => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {/* <ListItemText primary={option.value} /> */}
-                                        {option.value}
-                                    </MenuItem>
-                                ))}
-                                {/* <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem> */}
-                            </CustomSelect>
-                        </CustomFormControlDrop2>
-                    </Grid>
-
-
-
-                    <Grid item xs={3} sm={5}>
+                    <Grid item xs={4} sm={5}>
                         <p>Kantor Asal <span>:</span></p>
                     </Grid>
-                    <Grid item xs={9} sm={7}>
+                    <Grid item xs={8} sm={7}>
                         <p className='textShow'>60900 - IPC SURABAYA</p>
                     </Grid>
 
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>Kantor Tujuan* <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <CustomFormControlDrop2 variant='outlined'>
-                            
-                            <InputLabel id="demo-simple-select-helper-label">Kantor Tujuan*</InputLabel>
-                            <CustomSelect
-                                MenuProps={{
-                                    PaperProps: {
-                                    style: {
-                                        padding: '0px !important',
-                                    },
-                                    },
-                                }}
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select"
-                                value={selectedOption1}
-                                displayEmpty={isLargeScreen}
-                                label={isLargeScreen ? "" : 'Kantor Tujuan*'}
-                                onChange={handleOption1Change}
-                                disableScrollLock={true}
-                                >
-                                <MenuItem disabled value="" >
-                                    <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                                </MenuItem>
-                                {options1.map((option) => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {/* <ListItemText primary={option.value} /> */}
-                                        {option.value}
-                                    </MenuItem>
-                                ))}
-                                {/* <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem> */}
-                            </CustomSelect>
-                        </CustomFormControlDrop2>
-                    </Grid>
-
-                    
+                    <SelectInput name="kantorTujuan" label="Kantor Tujuan*" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
 
                 </Grid> 
+
                 <Grid item xs={12} md={6} container spacing={0}>
-                    
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>Bagian* <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <CustomFormControlDrop2 variant='outlined'>
-                            
-                            <InputLabel id="demo-simple-select-helper-label">Bagian*</InputLabel>
-                            <CustomSelect
-                                MenuProps={{
-                                    PaperProps: {
-                                    style: {
-                                        padding: '0px !important',
-                                    },
-                                    },
-                                }}
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select"
-                                value={selectedOption1}
-                                displayEmpty={isLargeScreen}
-                                label={isLargeScreen ? "" : 'Bagian*'}
-                                onChange={handleOption1Change}
-                                disableScrollLock={true}
-                                >
-                                <MenuItem disabled value="" >
-                                    <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                                </MenuItem>
-                                {options1.map((option) => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {/* <ListItemText primary={option.value} /> */}
-                                        {option.value}
-                                    </MenuItem>
-                                ))}
-                                {/* <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem> */}
-                            </CustomSelect>
-                        </CustomFormControlDrop2>
-                    </Grid>
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>Jabatan* <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <CustomFormControlDrop2 variant='outlined'>
-                            
-                            <InputLabel id="demo-simple-select-helper-label">Jabatan*</InputLabel>
-                            <CustomSelect
-                                MenuProps={{
-                                    PaperProps: {
-                                    style: {
-                                        padding: '0px !important',
-                                    },
-                                    },
-                                }}
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select"
-                                value={selectedOption1}
-                                displayEmpty={isLargeScreen}
-                                label={isLargeScreen ? "" : 'Jabatan*'}
-                                onChange={handleOption1Change}
-                                disableScrollLock={true}
-                                >
-                                <MenuItem disabled value="" >
-                                    <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                                </MenuItem>
-                                {options1.map((option) => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {/* <ListItemText primary={option.value} /> */}
-                                        {option.value}
-                                    </MenuItem>
-                                ))}
-                                {/* <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem> */}
-                            </CustomSelect>
-                        </CustomFormControlDrop2>
-                    </Grid>
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>Jenis Jabatan*  <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <CustomFormControlDrop2 variant='outlined'>
-                            
-                            <InputLabel id="demo-simple-select-helper-label">Jenis Jabatan*</InputLabel>
-                            <CustomSelect
-                                MenuProps={{
-                                    PaperProps: {
-                                    style: {
-                                        padding: '0px !important',
-                                    },
-                                    },
-                                }}
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select"
-                                value={selectedOption1}
-                                displayEmpty={isLargeScreen}
-                                label={isLargeScreen ? "" : 'Jenis Jabatan*'}
-                                onChange={handleOption1Change}
-                                disableScrollLock={true}
-                                >
-                                <MenuItem disabled value="" >
-                                    <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                                </MenuItem>
-                                {options1.map((option) => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {/* <ListItemText primary={option.value} /> */}
-                                        {option.value}
-                                    </MenuItem>
-                                ))}
-                                {/* <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem> */}
-                            </CustomSelect>
-                        </CustomFormControlDrop2>
-                    </Grid>
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>Rumpun Jabatan  <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <CustomFormControlDrop2 variant='outlined'>
-                            
-                            <InputLabel id="demo-simple-select-helper-label">Rumpun Jabatan</InputLabel>
-                            <CustomSelect
-                                MenuProps={{
-                                    PaperProps: {
-                                    style: {
-                                        padding: '0px !important',
-                                    },
-                                    },
-                                }}
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select"
-                                value={selectedOption1}
-                                displayEmpty={isLargeScreen}
-                                label={isLargeScreen ? "" : 'Rumpun Jabatan'}
-                                onChange={handleOption1Change}
-                                disableScrollLock={true}
-                                >
-                                <MenuItem disabled value="" >
-                                    <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                                </MenuItem>
-                                {options1.map((option) => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {/* <ListItemText primary={option.value} /> */}
-                                        {option.value}
-                                    </MenuItem>
-                                ))}
-                                {/* <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem> */}
-                            </CustomSelect>
-                        </CustomFormControlDrop2>
-                    </Grid>
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>Jenis Jabatan* <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <CustomFormControlDrop2 variant='outlined'>
-                            
-                            <InputLabel id="demo-simple-select-helper-label">Jenis Jabatan*</InputLabel>
-                            <CustomSelect
-                                MenuProps={{
-                                    PaperProps: {
-                                    style: {
-                                        padding: '0px !important',
-                                    },
-                                    },
-                                }}
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select"
-                                value={selectedOption1}
-                                displayEmpty={isLargeScreen}
-                                label={isLargeScreen ? "" : 'Jenis Jabatan*'}
-                                onChange={handleOption1Change}
-                                disableScrollLock={true}
-                                >
-                                <MenuItem disabled value="" >
-                                    <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                                </MenuItem>
-                                {options1.map((option) => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {/* <ListItemText primary={option.value} /> */}
-                                        {option.value}
-                                    </MenuItem>
-                                ))}
-                                {/* <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem> */}
-                            </CustomSelect>
-                        </CustomFormControlDrop2>
-                    </Grid>
-                    <CustomGridLabel
-                        component={Grid}
-                        item
-                        xs={12} sm={5}
-                    >
-                        <p>Keterangan <span>:</span></p>
-                    </CustomGridLabel>
-                    <Grid item xs={12} sm={7}>
-                        <FormControl sx={{width:'100%'}}>
-                            <CustomTextField
-                                id="outlined-basic" 
-                                label={isLargeScreen ? "" : 'Keterangan'}
-                                variant="outlined"
-                            />
-                        </FormControl>
-                    </Grid>
-                    
+
+                    <SelectInput name="bagian" label="Bagian*" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
+
+                    <SelectInput name="jabatan" label="Jabatan*" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
+
+                    <SelectInput name="jenisJabatan" label="Jenis Jabatan*" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
+
+                    <SelectInput name="rumpunJabatan" label="Rumpun Jabatan*" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
+
+                    <SelectInput name="kantorTujuan" label="Kantor Tujuan*" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
+
+                    <SelectInput name="jenisJabatan" label="Jenis Jabatan*" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
+
+                    <TextInput name="keterangan" label="Keterangan" />
+
                 </Grid> 
+
                 <CustomGridLabel
                     component={Grid}
                     item
@@ -546,19 +207,19 @@ function NewMutasi() {
 
                 
 
-                </Grid>
-                </form>
-                <Grid item xs={12}>
-                    <p>Ket : * Wajib diisi</p>
-                </Grid>
-
+            </Grid>
+            </form>
+            <Grid item xs={12}>
+                <p>Ket : * Wajib diisi</p>
             </Grid>
 
-        <h3>DAFTAR KELOLA HISTORI MUTASI POH DAN RANGKAP JABATAN</h3>
-        {/* <p>Status kerja saat ini : <b>AKTIF</b></p> */}
-        <Box xs={{height:'50px'}}>
+        </Grid>
 
+        <Box sx={{marginTop:'20px'}}>
+            <h3>DAFTAR KELOLA HISTORI MUTASI POH DAN RANGKAP JABATAN</h3>
+            {/* <p>Status kerja saat ini : <b>AKTIF</b></p> */}
         </Box>
+
         <TableNoPage
             rows={rows}
             headCells={headCells}

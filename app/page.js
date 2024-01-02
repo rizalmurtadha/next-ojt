@@ -10,11 +10,15 @@ import MainArea from './component/MainArea'
 import TestDrawer from './component/TestDrawer'
 import Sidebar from './component/Sidebar'
 import Navigation from './component/Navigation'
+import Login from './component/Login'
+import TestLima from './component/TestLima'
+import { Island_Moments } from 'next/font/google'
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState('statusKerja');
   const [isSidePanel, setIsSidePanel] = useState(false);
   const [isDockOpen, setDock] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   const changeNavStyle = (style) => {
     setIsSidePanel(style);
@@ -22,6 +26,10 @@ export default function Home() {
 
   const changeDockState = (state) => {
     setDock(state);
+  }
+
+  const userLogin = (state) => {
+    setIsLogin(state);
   }
 
 
@@ -159,17 +167,52 @@ export default function Home() {
     //     </a>
     //   </div>
     // </main>
-    <div  style={{ backgroundColor:'#fff', minHeight:'100vh', color:'#000'}}>
+   
+   
+   
+  <div  style={{ backgroundColor:'#fff', minHeight:'100vh', color:'#000'}}>
       {/* <Navbar changeContent={changeContent} menu={dict[currentPage]} /> */}
       {/* <TestDrawer /> */}
       {/* <Sidebar /> */}
-      <Navigation changeContent={changeContent} menu={dict[currentPage]} 
-        isSidePanel={isSidePanel} changeNavStyle={changeNavStyle}
-      />
-      <MainArea currentPage={currentPage} 
+      
+      { 
+        isLogin ? 
+        (
+          <>
+            <Navigation changeContent={changeContent} menu={dict[currentPage]} 
+              isSidePanel={isSidePanel} changeNavStyle={changeNavStyle}
+            />
+            <MainArea currentPage={currentPage} 
+              isSidePanel={isSidePanel}
+              isDockOpen={isDockOpen} changeDockState={changeDockState}
+            />
+          </>
+        ) : (<Login userLogin={userLogin} />) 
+      }
+
+
+          {/* {
+            !isLogin &&
+          <Login isLogin={isLogin} userLogin={userLogin} />
+          }
+          <Navigation changeContent={changeContent} menu={dict[currentPage]} 
+              isSidePanel={isSidePanel} changeNavStyle={changeNavStyle}
+            />
+            <MainArea isLogin={isLogin} currentPage={currentPage} 
+              isSidePanel={isSidePanel}
+              isDockOpen={isDockOpen} changeDockState={changeDockState}
+            /> */}
+
+
+
+
+      {/* <TestLima /> */}
+
+      {/* <MainArea currentPage={currentPage} 
         isSidePanel={isSidePanel}
         isDockOpen={isDockOpen} changeDockState={changeDockState}
-      />
+      /> */}
+
     </div>
   )
 }

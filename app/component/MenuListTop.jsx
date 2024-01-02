@@ -10,6 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import FolderIcon from '@mui/icons-material/Folder';
 
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
@@ -88,7 +89,7 @@ function MenuListTop(  props ) {
                         } placement="right-start">
                             <Button
                             className='tooltipButton'
-                                startIcon={<SupervisorAccountIcon />}
+                                startIcon={<FolderIcon />}
                                 endIcon={<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="tabler-icon tabler-icon-chevron-right"><path d="M9 6l6 6l-6 6" /></svg>}
                             >
                                 <p>Mutasi</p>
@@ -130,7 +131,7 @@ function MenuListTop(  props ) {
                         } placement="right-start">
                             <Button
                             className='tooltipButton'
-                                startIcon={<SupervisorAccountIcon />}
+                                startIcon={<FolderIcon />}
                                 endIcon={<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="tabler-icon tabler-icon-chevron-right"><path d="M9 6l6 6l-6 6" /></svg>}
                             >
                                 <p>Transferable</p>

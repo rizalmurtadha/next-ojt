@@ -9,7 +9,7 @@ import {Button} from '@mui/material'
 import {Tooltip} from '@mui/material'
 import Image from 'next/image';
 import MenuIcon from '@mui/icons-material/Menu';
-// import './../tooltip.css'
+import './../tooltip.css'
 
 import MenuListTop from './MenuListTop'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -31,9 +31,9 @@ function Navbar({isSidePanel ,isDrawerOpen, setDrawerStatus, ...props}) {
                     <List >
                         <a>
                             <Image 
-                                src="/images/posindonesia.jpg"
-                                width={91}
-                                height={54}
+                                src="/images/logo_posindo_new.png"
+                                width={57}
+                                height={50}
                             />
                         </a>
                     </List>
@@ -57,7 +57,7 @@ function Navbar({isSidePanel ,isDrawerOpen, setDrawerStatus, ...props}) {
                     <List sx={{padding:'5px 20px'}}>
                         <a>
                             <Image 
-                                src="/images/posindonesia.jpg"
+                                src="/images/logo_posindo_new.png"
                                 width={90}
                                 height={60}
                             />
@@ -84,7 +84,7 @@ function Navbar({isSidePanel ,isDrawerOpen, setDrawerStatus, ...props}) {
                         <Button 
                             onClick={() => changeContent('home')}
                         >
-                            <p>Home</p>
+                            <p>Dashboard</p>
                         </Button>
                     </List>
                     <List className={`menu-first ${menu === 1 ? "active" : ""}`}>

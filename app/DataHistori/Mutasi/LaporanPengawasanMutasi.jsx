@@ -1,24 +1,14 @@
-'use client'
-import { ListItemText, Box, FormControl, FormControlLabel, FormGroup,Checkbox , Grid, Select } from '@mui/material'
-import React from 'react'
+// 'use client'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { PageAreaContainer, CustomNipposTextField, CustomGridLabel, CustomButton,
-         DropdownFormControl, CustomSelect, CustomTextField, CustomFormControlDrop2,
-         CustomWarningBox, CustomDatePicker } from '../../component/Styles'
-import { InputLabel } from '@mui/material'
-import { Card, CardActions, CardContent, CardMedia,Typography, Button   } from '@mui/material'
-import { useMediaQuery } from '@mui/material';
-import MenuItem from "@mui/material/MenuItem";
-import TableNoPage from '../../component/TableNoPage'
+import {  Box, Grid } from '@mui/material'
+import { PageAreaContainer, CustomGridLabel, CustomButton } from '../../component/Styles'
 
-import dayjs from 'dayjs';
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import axios from 'axios';
+
+import SelectInput from '../../component/SelectInput';
+import TextInput from '../../component/TextInput';
+import DateInput from '../../component/DateInput';
 
 const rows = [
     { no: 1, statusKerja: 'Aktif', TMT: "21-04-2018", keterangan: "Mutasi antar KPRK", tanggalInsert: "17-04-2018" },
@@ -65,300 +55,116 @@ const rows = [
     },
   ];
 
-  const options1 = [
-    { id: '1', value: 'Regional I' },
-    { id: '2', value: 'Regional II' },
-    { id: '3', value: 'Regional III' },
-  ];
-  
-  const options2 = [
-    { id: '4', value: 'KCP PLOSO' },
-    { id: '5', value: 'KCP KUDU' },
-    { id: '6', value: 'KCP KABUH' },
+  const listKantor = [
+    "KCP CIKUPA",
+    "KCP TIGARAKSA",
+    "KCP CISOKA",
+    "KCP CIBADAK",
   ];
 
-  const options3 = [
-    { id: '7', value: '2019' },
-    { id: '8', value: '2020' },
-    { id: '9', value: '2021' },
-    { id: '10', value: '2022' },
-    { id: '11', value: '2023' },
+  const listStatusKerja = [
+    "Aktif",
+    "PHK ATAS PERMINTAAN SENDIRI",
+    "PHK KARENA MANGKIR",
   ];
+
+
 
 function LaporanPengawasanMutasi() {
-  const [age, setAge] = React.useState('');
-    const [selectedOption1, setSelectedOption1] = useState('');
-    const [selectedOption2, setSelectedOption2] = useState('');
-    const [selectedOption3, setSelectedOption3] = useState('');
-    const [textFieldValue, setTextFieldValue] = useState('');
+    const [regionalData, setRegionalData] = useState([]);
 
-    const isLargeScreen = useMediaQuery('(min-width:600px)');
+    const [tickets, setTickets] = useState([]);
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
-    const handleOption1Change = (event) => {
-        setSelectedOption1(event.target.value);
-    };
+    const [regionalList, setRegionalList] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const handleOption2Change = (event) => {
-        setSelectedOption2(event.target.value);
-    };
+    // async function fetchTickets() {
+    // const res = await fetch('http://localhost:2000/regionals');
+    // const data = await res.json();
+    // setRegionalData(data);
+    // }
+    useEffect(() => {
+        fetchData();
+        // async function fetchTickets() {
+        // const resp = await axios.get('http://localhost:2000/regionals');
+        // console.log(resp.data);
+        // setRegionalData(resp.data);
+        // console.log(regionalData);
+        // // setRegionalList (resp.data.map((obj) => obj.name));
+        // // console.log(regionalList);
+        // setLoading(false);
+        // }
 
-    const handleOption3Change = (event) => {
-      setSelectedOption2(event.target.value);
-    };
+        // fetchTickets();
+    }, []);
 
-    const handleTextFieldChange = (event) => {
-        setTextFieldValue(event.target.value);
-    };
+    async function fetchData() {
+        const resp = await axios.get('http://localhost:2000/regionals');
+        console.log(resp.data);
+        setRegionalData(resp.data);
+        setRegionalList (resp.data.map((obj) => obj.regional));
+      }
+
+      useEffect(() => {
+        setLoading(false);
+        console.log(regionalList);
+        // You can perform other actions with the updated state here
+      }, [regionalList]); // This effect runs whenever regionalData changes
+
 
   return (
     <PageAreaContainer >
-        <h1>LAPORAN PENGAWASAN PELAKSANAAN MUTASI</h1>
+        <Box style={{marginBottom:'20px'}}>
+            <h1>LAPORAN PENGAWASAN PELAKSANAAN MUTASI</h1>
+        </Box>
+        {/* {loading ? (
+            <p>Loading...</p>
+            ) : (
+            <div>
+
+                <ul>
+                    {regionalData.map((reg) => (
+                    <li key={reg["regional_id"]}>{reg["regional_id"]} {reg["regional"]}</li>
+                    ))}
+                </ul>
+                
+                
+            </div>
+        )} */}
         <Grid className='main' sx={{backgroundColor:'white'}} container spacing={0}>
-            {/* <Grid item xs={12}>
-                <form style={{paddingBottom:'10px'}}>
-                    <FormControl >
-                        <CustomNipposTextField
-                            id="outlined-basic" 
-                            label="Nippos" 
-                            variant="outlined"
-                            sx={{minWidth:'200px'}}
-                            />
-                    </FormControl>
-                </form>
-            </Grid> */}
-            <Grid item xs={12}>
+            <form style={{width:'100%'}}>
+                <Grid container spacing={0}>
+                    <SelectInput name="regional" label="Regional" options={regionalList} datas={regionalData} valueKey="regional_id" labelKey="regional" placeholder="-- Silahkan Pilih --" />
 
-            </Grid>
-            <form >
-            <Grid container spacing={0}>
+                    <SelectInput name="upt" label="UPT" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
 
-            
+                    <SelectInput name="tahun" label="Tahun" options={[]} datas={[]} valueKey="" labelKey="" placeholder="-- Silahkan Pilih --" />
 
-            
-            {/* <Grid item xs={3} sm={4}>
-                <p>Nippos <span>:</span></p>
-            </Grid>
-            <Grid item xs={6} sm={8}>
-                <p className='textShow'>99928371828</p>
-            </Grid> */}
-            <CustomGridLabel
-                component={Grid}
-                item
-                xs={12} sm={4}
-            >
-                <p>Regional <span>:</span></p>
-            </CustomGridLabel>
-            <Grid item xs={12} sm={8}>
-                <CustomFormControlDrop2 variant='outlined'>
-                    
-                    <InputLabel id="demo-simple-select-helper-label">Regional</InputLabel>
-                    <CustomSelect
-                        MenuProps={{
-                            PaperProps: {
-                            style: {
-                                padding: '0px !important',
-                            },
-                            },
-                        }}
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select"
-                        value={selectedOption1}
-                        displayEmpty={isLargeScreen}
-                        label={isLargeScreen ? "" : 'Regional'}
-                        onChange={handleOption1Change}
-                        disableScrollLock={true}
-                        >
-                        <MenuItem disabled value="" >
-                            <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                        </MenuItem>
-                        {options1.map((option) => (
-                            <MenuItem key={option.id} value={option.id}>
-                                {/* <ListItemText primary={option.value} /> */}
-                                {option.value}
-                            </MenuItem>
-                        ))}
-                        {/* <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem> */}
-                    </CustomSelect>
-                </CustomFormControlDrop2>
-            </Grid>
-            <CustomGridLabel
-                component={Grid}
-                item
-                xs={12} sm={4}
-            >
-                <p>UPT <span>:</span></p>
-            </CustomGridLabel>
-            <Grid item xs={12} sm={8}>
-                <CustomFormControlDrop2>
-                    
-                    <InputLabel id="demo-simple-select-helper-label">UPT</InputLabel>
-                    <CustomSelect
-                        MenuProps={{
-                            PaperProps: {
-                            style: {
-                                padding: '0px',
-                            },
-                            },
-                        }}
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select"
-                        value={selectedOption2}
-                        displayEmpty={isLargeScreen}
-                        label={isLargeScreen ? "" : 'UPT'}
-                        onChange={handleOption2Change}
-                        // disableScrollLock={true}
-                        >
-                        <MenuItem disabled value="" >
-                            <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                        </MenuItem>
-                        {options2.map((option) => (
-                            <MenuItem key={option.id} value={option.id}>
-                                {/* <ListItemText primary={option.value} /> */}
-                                {option.value}
-                            </MenuItem>
-                        ))}
-                        {/* <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem> */}
-                    </CustomSelect>
-                </CustomFormControlDrop2>
-            </Grid>
-            <CustomGridLabel
-                component={Grid}
-                item
-                xs={12} sm={4}
-            >
-                <p>Tahun <span>:</span></p>
-            </CustomGridLabel>
-            <Grid item xs={12} sm={8}>
-                <CustomFormControlDrop2>
-                    
-                    <InputLabel id="demo-simple-select-helper-label">Tahun</InputLabel>
-                    <CustomSelect
-                        MenuProps={{
-                            PaperProps: {
-                            style: {
-                                padding: '0px',
-                            },
-                            },
-                        }}
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select"
-                        value={selectedOption3}
-                        displayEmpty={isLargeScreen}
-                        label={isLargeScreen ? "" : 'UPT'}
-                        onChange={handleOption3Change}
-                        // disableScrollLock={true}
-                        >
-                        <MenuItem disabled value="" >
-                            <em>-- Silahkan Pilih {isLargeScreen}--</em>
-                        </MenuItem>
-                        {options3.map((option) => (
-                            <MenuItem key={option.id} value={option.id}>
-                                {/* <ListItemText primary={option.value} /> */}
-                                {option.value}
-                            </MenuItem>
-                        ))}
-                        {/* <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem> */}
-                    </CustomSelect>
-                </CustomFormControlDrop2>
-            </Grid>
+                    {/* <SelectInput name="upt" label="UPT" options={listKantor} placeholder="-- Silahkan Pilih --" /> */}
 
-            {/* <CustomGridLabel
-                component={Grid}
-                item
-                xs={12} sm={4}
-            >
-                <p>TMT* <span>:</span></p>
-            </CustomGridLabel>
-            <Grid item xs={12} sm={8}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer
-                        components={[
-                        'DatePicker',
-                        'MobileDatePicker',
-                        'DesktopDatePicker',
-                        'StaticDatePicker',
-                        ]}
+                    {/* <SelectInput name="tahun" label="Tahun" options={listKantor} placeholder="-- Silahkan Pilih --" /> */}
+
+                    <CustomGridLabel
+                        component={Grid}
+                        item
+                        xs={12} sm={5}
                     >
-                        <CustomDatePicker  />
-                    </DemoContainer>
-                </LocalizationProvider>
-            </Grid>
-            <CustomGridLabel
-                component={Grid}
-                item
-                xs={12} sm={4}
-            >
-                <p>Keterangan <span>:</span></p>
-            </CustomGridLabel>
-            <Grid item xs={12} sm={8}>
-                <FormControl sx={{width:'100%'}}>
-                    <CustomTextField
-                        id="outlined-basic" 
-                        label={isLargeScreen ? "" : 'Keterangan'}
-                        variant="outlined"
-                    />
-                </FormControl>
-            </Grid>
-            <CustomGridLabel
-                component={Grid}
-                item
-                xs={12} sm={4}
-            >
-            </CustomGridLabel>
-            <Grid item xs={12} sm={8} >
-                <CustomWarningBox >
-                    <h5 >
-                        PERHATIAN
-                    </h5>
-                    <FormGroup>
-                        <FormControlLabel
-                            value="start"
-                            control={<Checkbox />}
-                            label="Apakah data Status Kerja ini akan merubah status kerja orang yang bersangkutan?"
-                            labelPlacement="start"
-                            
-                        />
-                    </FormGroup>
-                </CustomWarningBox>
-            </Grid> */}
-
-            <CustomGridLabel
-                component={Grid}
-                item
-                xs={12} sm={4}
-            >
-            </CustomGridLabel>
-            <Grid item xs={12} sm={8} >
-                <Box sx={{display:'flex', justifyContent:'right', maxWidth:'500px', width:'100%', marginTop:'15px'}}>
-                    <CustomButton type='submit' variant='contained'>
-                        Tampilkan Data
-                    </CustomButton>
-                    {/* <CustomButton type='submit' variant='contained'>
-                        Simpan
-                    </CustomButton> */}
-                </Box>
-            </Grid>
-
-            </Grid>
+                    </CustomGridLabel>
+                    <Grid item xs={12} sm={7} >
+                        <Box sx={{display:'flex', justifyContent:'right', maxWidth:'500px', width:'100%', marginTop:'15px'}}>
+                            <CustomButton type='submit' variant='contained'>
+                                Tampilkan Data
+                            </CustomButton>
+                        </Box>
+                    </Grid>
+                </Grid>
             </form>
-            <Grid item xs={12}>
-                {/* <p>Ket : * Wajib diisi</p> */}
-            </Grid>
-
         </Grid>
 
-        <h3>LAPORAN PENGAWASAN PELAKSANAAN MUTASI KANTOR REGIONAL V SURABAYA SPP SURABAYA</h3>
-        {/* <p>Status kerja saat ini : <b>AKTIF</b></p> */}
-        
+        <Box style={{marginTop:'40px'}}>
+            <h3>LAPORAN PENGAWASAN PELAKSANAAN MUTASI KANTOR REGIONAL V SURABAYA SPP SURABAYA</h3>
+            <p>Status kerja saat ini : <b>AKTIF</b></p>        
+        </Box>
         {/* <TableNoPage
             rows={rows}
             headCells={headCells}

@@ -39,14 +39,14 @@ const agama = 'https://public.tableau.com/views/StatusNikahAgama/Dashboard?:lang
 const mutasi = 'https://public.tableau.com/views/Dashboard_mutasi3/Dashboard?:language=en-US&:display_count=n&:origin=viz_share_link';
 const gender = 'https://public.tableau.com/views/GenderdanRentangUsia/Dashboard3?:language=en-US&:display_count=n&:origin=viz_share_link';
 
-function MainArea({currentPage, isSidePanel, isDockOpen}) {
+function MainArea({isLogin, currentPage, isSidePanel, isDockOpen}) {
   return (
-    <MainAreaContainer className={` ${isSidePanel ? 'sidebar' : ''} ${isDockOpen ? 'open':'close'}` } >
+    <MainAreaContainer className={` ${isSidePanel ? 'sidebar' : ''} ${isDockOpen ? 'open':'close'} ${isLogin ? 'full-height' : ''}` } >
       {/* <CollapseTest /> */}
       {/* <h1>Main Area</h1> */}
       {/* <Dashboard /> */}
 
-      {currentPage === 'home' && <TableauTest link={mutasi} />}
+      {currentPage === 'home' && <TableauTest isLogin={isLogin} link={mutasi} />}
       {/* {currentPage === 'statusKerja' && <StatusKerja />} */}
       {currentPage === 'statusKerja' && <KelolaStatusKerja />}
       
@@ -82,6 +82,8 @@ function MainArea({currentPage, isSidePanel, isDockOpen}) {
       {currentPage === 'dataKaryawanBagianNonAktif' && <DataBagianNon />}
       {currentPage === 'dataKaryawanJabatanNonAktif' && <DataJabatanNon />}
       {currentPage === 'dataKaryawanNopendNonAktif' && <DataNopend />}
+      {currentPage === 'TMT_CBS_MPP_PENSIUN_PER_KANTOR' && <LaporanPerKantor />}
+
       {currentPage === 'TMT_CBS_MPP_PENSIUN_PER_KANTOR' && <LaporanPerKantor />}
 
 

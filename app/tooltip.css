@@ -10,20 +10,20 @@
 .MuiTooltip-tooltip .MuiListItem-root  {
     border-radius: 15px;
 }
-.MuiTooltip-tooltip .MuiList-root  {
+/* .MuiTooltip-tooltip .MuiList-root  {
     border-radius: 15px;
-}
+} */
 
 .MuiPopper-root {
     background-color: #FFFFFF !important;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 15px;
+    /* border-radius: 15px; */
 }
 
 .MuiPopper-root .MuiTooltip-tooltip{
     padding:0px;
     margin: 0px;
-    border-radius: 15px;
+    /* border-radius: 15px; */
 }
 
 .MuiPopper-root .tooltipButton {
@@ -50,7 +50,7 @@
 }
 
 .MuiPopper-root .tooltipButton:hover {
-    background-color: #FF690070;
+    background-color: #250FFF70;
 }
 
 .MuiPopper-root .MuiList-root {

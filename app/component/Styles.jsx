@@ -12,6 +12,49 @@ import { DatePicker } from '@mui/x-date-pickers';
 // import { makeStyles } from '@material-ui/core/styles';
 
 
+export const LoginCanvas = styled(Box) ({
+    position:'absolute',
+    zIndex:10000,
+    width:'100%',
+    height:'100vh',
+    backgroundImage:'linear-gradient(#1B2C5A, #250FFF)',
+});
+
+export const LoginFormCanvas = styled(Box) ({
+    width:'800px',
+    height:'400px',
+    backgroundColor:'white',
+    margin:'0px 20px',
+    // border:'solid black 2px',
+    borderRadius:'20px',
+    boxShadow:'0px 5px 10px rgba(0, 0, 0, 0.85)',
+    overflow:'hidden',
+    'img':{
+        // borderRadius:'19px 0px 0px 19px',
+    },
+    '.gambar':{
+        '@media (max-width:900px)':{
+            display:'none',
+        }
+    }
+});
+
+export const LogoGrid = styled(Grid) ({
+    display:'flex',
+    padding:'5px',
+    '&.left':{
+        justifyContent:'end',
+    },
+    '&.right':{
+        justifyContent:'start',
+    },
+    '@media (max-width:600px)':{
+        '&.left , &.right':{
+            justifyContent:'center'
+        }
+    }
+});
+
 export const MainAreaContainer = styled(Box)({
     // backgroundColor:'pink',
     // backgroundColor:'#9D9D9D',
@@ -24,7 +67,10 @@ export const MainAreaContainer = styled(Box)({
     },
     '&.sidebar.close': {
         marginLeft:'72px'
-    }
+    },
+    '&.full-height': {
+        // height: '100vh',
+      }
 });
 
 export const PageAreaContainer = styled(Box)({
@@ -32,7 +78,7 @@ export const PageAreaContainer = styled(Box)({
     minHeight:'calc(100vh - 84px)',
     flexGrow:1,
     // backgroundColor:'rgb(54, 65, 82)',
-    // border:'solid 10px #9d9d9d80',
+    border:'solid 10px #9d9d9d80',
     borderRadius:'20px 20px 0px 0px',
     alignItems:'center',
     'h1': {
@@ -79,18 +125,29 @@ export const CustomDatePicker = styled(DatePicker) ({
     '.MuiInputBase-root':{
         height:'40px',
         borderRadius:'10px',
-        // width:'100%',
-        // maxWidth:'500px',
         '.MuiInputBase-input':{
             height:'40px',
             padding:'0px 10px',
         },
-        ':hover':{
-            borderColor:'red',
-        }
     },
     '.MuiFormLabel-root' :{
         top:'-7px',
+        // color:'#250FFF',
+        '&.MuiFormLabel-filled':{
+            top:'0px',
+            color:'FF6900',
+        }
+    },
+    '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline':{
+        borderColor:'#250FFF',
+    },
+    '& label.Mui-focused' :{
+        color: '#250FFF'
+    },
+    '& .MuiOutlinedInput-root': {
+        '&.Mui-focused fieldset': {
+            borderColor: '#250FFF'
+        }
     },
 });
 
@@ -141,8 +198,8 @@ export const TopNavbar = styled(Toolbar) (({ theme }) => ({
             textTransform:'capitalize'
         },
         ':hover, :hover Button ,&.active, &.active Button':{
-            color:'#FF6900',
-            borderColor:"#FF6900"
+            color:'#250FFF',
+            borderColor:"#250FFF"
         },
     },
     '&.hidden':{
@@ -163,14 +220,14 @@ export const CustomButton = styled(Button)({
     //     color:'red'
     // }
     color: 'white',
-    backgroundColor: '#FF6900',
+    backgroundColor: '#250FFF',
     '&:hover': {
-      backgroundColor: '#c25100',
+      backgroundColor: '#111c3a',
     },
     // width: '90px',
     // height: '36px',
     borderRadius:'10px',
-    borderBottom: '1px solid #EE3A02',
+    borderBottom: '1px solid #111f46',
     boxSizing: 'border-box',
     margin: '0px 5px',
 });
@@ -187,7 +244,7 @@ export const CustomWarningBox = styled(Box) ({
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#FF6900',
+        backgroundColor:'#250FFF',
         color:'#fff',
         borderRadius:'15px 15px 0px 0px',
         minHeight:'25px',
@@ -211,41 +268,35 @@ export const CustomWarningBox = styled(Box) ({
 });
 
 export const CustomNipposTextField = styled(TextField)({
-    paddingBottom:'20px',
+    // paddingBottom:'20px',
+    minWidth:'200px',
+    // top:'7px',
     '& .MuiInputBase-root':{
-        height:'56px',
+        height:'40px',
         width:'100%',
         minWidth:'200px',
         borderRadius:'25px',
-        "@media (max-width: 600px)": {
-            // width:'200px',
-            height:'40px',
-            '.MuiInputBase-input':{
-                display:'flex',
-                // textAlign:'center',
-                alignItem:'center',
-                height:'40px',
-                padding:'0px 14px'
-            }
-        }
     },
-    '& label.Mui-focused' :{
-        color: '#FF6900'
+    'label':{
+        top:'-7px',
+        // color:'#250FFF',
+    },
+    'label.Mui-focused' :{
+        color: '#250FFF',
+        top:'0px'
+    },
+    'label.MuiFormLabel-filled' :{
+        // color: '#250FFF',
+        top:'0px'
     },
     '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: '#FF6900'
+        borderColor: '#250FFF'
     },
     '& .MuiOutlinedInput-root': {
         '&.Mui-focused fieldset': {
-            borderColor: '#FF6900'
+            borderColor: '#250FFF'
         }
-    },
-    '@media (max-width:600px)':{
-        '.MuiFormLabel-root' :{
-            top:'-7px',
-        }
-    }
-    
+    },    
 });
 
 export const CustomSelect = styled(Select)({
@@ -260,24 +311,24 @@ export const CustomSelect = styled(Select)({
     //     borderColor:'rgba(0,0,0,0.8',
     // },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: '#FF6900',
+        borderColor: '#250FFF',
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: '#FF6900',
+        borderColor: '#250FFF',
     },
 
     '.MuiSvgIcon-root ': {
-        fill: '#FF6900',
+        fill: '#250FFF',
     },  
     'em':{
         fontSize:'14px',
     },
     '.MuiSelect-select' :{
-        // color:'#FF6900',
+        // color:'#250FFF',
     },
-    '.MuiPopover-root': {
-        zIndex:2000,
-      }
+    // '.MuiPopover-root': {
+    //     zIndex:2000,
+    //   }
 });
 
 export const CustomSidebarMobile = styled(List)({
@@ -290,18 +341,18 @@ export const DropdownFormControl = styled(FormControl)({
     // ".MuiFormLabel-root" : {
     //     top:"-7px",
     //     height:'40px',
-    //     // color: '#FF6900',
+    //     // color: '#250FFF',
     //     "@media (min-width: 600px)": {
     //         display:'none'
     //     },
     //     '.Mui-focused' :{
-    //         color: '#FF6900',
+    //         color: '#250FFF',
     //     }
 
     // },
 
     // ".MuiInputLabel-shrink" : {
-    //     color: '#FF6900',
+    //     color: '#250FFF',
     //     top:'0px',
     // }
 })
@@ -311,10 +362,10 @@ export const CustomFormControlDrop2 = styled(FormControl)({
     height:'40px',
     ".MuiFormLabel-root" : {
         top:"-7px",
-        color: '#FF6900',
+        color: '#250FFF',
         '.MuiFormLabel-root': {
             '.Mui-focused':{
-                color: '#FF6900',
+                color: '#250FFF',
             }
         },
         "@media (min-width: 600px)": {
@@ -323,9 +374,27 @@ export const CustomFormControlDrop2 = styled(FormControl)({
         
     },
     // '.Mui-focused' :{
-    //     color: '#FF6900',
+    //     color: '#250FFF',
     // }
 });
+
+export const CustomFormControlSelect = styled(FormControl) ({
+    width:'100%',
+    ".MuiFormLabel-root" : {
+        top:"-7px",
+        // color: '#250FFF',
+        '&.Mui-focused' :{
+            color: '#250FFF',
+            top:'0px',
+        },
+        '&.MuiFormLabel-filled' :{
+            top:'0px',
+        },
+        "@media (min-width: 600px)": {
+            display:'none'
+        },
+    },
+})
 
 export const CustomGridLabel = styled(Box)({
     display:'none',
@@ -344,24 +413,36 @@ export const CustomLabelGrid = styled(Grid)({
 
 
 export const CustomTextField = styled(TextField)({
-    
+    width:'100%',
     '& .MuiInputBase-root':{
         width:'100%',
         maxWidth:'500px',
         height:'40px',
         borderRadius:'10px',
+        '.MuiOutlinedInput-input':{
+            backgroundColor:'transparent !important'
+        },
+    },
+    ' label':{
+        top:'-7px',
     },
     '& label.Mui-focused' :{
-        color: '#FF6900'
+        color: '#250FFF',
+        top:'0px'
+    },
+    'label.MuiFormLabel-filled' :{
+        // color: '#250FFF',
+        top:'0px'
     },
     '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: '#FF6900'
+        borderColor: '#250FFF'
     },
     '& .MuiOutlinedInput-root': {
         '&.Mui-focused fieldset': {
-            borderColor: '#FF6900'
+            borderColor: '#250FFF'
         }
     },
+    
 });
 
 export const CustomTooltip = styled(Tooltip)({

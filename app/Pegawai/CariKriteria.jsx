@@ -20,6 +20,11 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 
+import SelectInput from '../component/SelectInput';
+import TextInput from '../component/TextInput';
+import DateInput from '../component/DateInput';
+
+
 const rows = [
     { no: 1, statusKerja: 'Aktif', TMT: "21-04-2018", keterangan: "Mutasi antar KPRK", tanggalInsert: "17-04-2018" ,button:''},
     { no: 2, statusKerja: 'Aktif', TMT: "21-04-2017", keterangan: "Mutasi antar KPRK", tanggalInsert: "17-04-2017" ,button:''},
@@ -27,42 +32,12 @@ const rows = [
   ];
 
   const headCells = [
-    {
-      id: 'no',
-      numeric: false,
-      disablePadding: true,
-      label: 'No',
-    },
-    {
-      id: 'statusKerja',
-      numeric: false,
-      disablePadding: false,
-      label: 'Status Kerja',
-    },
-    {
-      id: 'tmt',
-      numeric: true,
-      disablePadding: false,
-      label: 'TMT',
-    },
-    {
-      id: 'keterangan',
-      numeric: false,
-      disablePadding: false,
-      label: 'Keterangan',
-    },
-    {
-      id: 'insert',
-      numeric: true,
-      disablePadding: false,
-      label: 'Tanggal Insert',
-    },
-    {
-        id: 'aksi',
-        numeric: false,
-        disablePadding: false,
-        label: 'Aksi',
-    },
+    { id: 'no', label: 'No', },
+    { id: 'statusKerja', label: 'Status Kerja', },
+    { id: 'tmt', label: 'TMT', },
+    { id: 'keterangan', label: 'Keterangan', },
+    { id: 'insert', label: 'Tanggal Insert', },
+    { id: 'aksi', label: 'Aksi', },
   ];
 
   const options1 = [
@@ -75,6 +50,19 @@ const rows = [
     { id: '4', value: 'Aktif' },
     { id: '5', value: 'PHK ATAS PERMINTAAN SENDIRI' },
     { id: '6', value: 'PHK KARENA MANGKIR' },
+  ];
+
+  const listKantor = [
+    "KCP CIKUPA",
+    "KCP TIGARAKSA",
+    "KCP CISOKA",
+    "KCP CIBADAK",
+  ];
+
+  const listStatusKerja = [
+    "Aktif",
+    "PHK ATAS PERMINTAAN SENDIRI",
+    "PHK KARENA MANGKIR",
   ];
 
 function CariKriteria() {
@@ -101,22 +89,16 @@ function CariKriteria() {
 
   return (
     <PageAreaContainer >
-        <h1>PENCARIAN PEGAWAI</h1>
+        <Box style={{marginBottom:'20px'}}>
+            <h1>PENCARIAN PEGAWAI</h1>
+        </Box>
         <Grid className='main' sx={{backgroundColor:'white', marginTop:'40px'}} container spacing={0}>
-            {/* <Grid item xs={12}>
-                <form style={{paddingBottom:'10px'}}>
-                    <FormControl >
-                        <CustomNipposTextField
-                            id="outlined-basic" 
-                            label="Nippos" 
-                            variant="outlined"
-                            sx={{minWidth:'200px'}}
-                            />
-                    </FormControl>
-                </form>
-            </Grid> */}
-            <form >
+            <form style={{width:'100%'}}>
             <Grid container spacing={0}>
+
+                
+
+
                 <Grid item xs={12} md={6} container spacing={0}>
                     <CustomGridLabel
                         component={Grid}
